@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 var postSchema = new Schema({
-    postId: {
+    userId: {
         type: String,
         required: true,
         unique: true
@@ -19,11 +19,11 @@ var postSchema = new Schema({
         type: Boolean,
         default: false
     },
-    numberOfLikes:{
-	type: Number,
-	default: 0,
-    timestamps: true
-    }
+    // numberOfLikes:{
+	// type: Number,
+	// default: 0,
+    // timestamps: true
+    // }
 });
 
 var Posts = mongoose.model('Post', postSchema);
