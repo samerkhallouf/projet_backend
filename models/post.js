@@ -4,8 +4,7 @@ const Schema = mongoose.Schema;
 var postSchema = new Schema({
     userId: {
         type: String,
-        required: true,
-        unique: true
+        required: true
     },
     title: {
         type: String,
@@ -15,10 +14,15 @@ var postSchema = new Schema({
         type: String,
         required: true
     },
-    highlighted:   {
-        type: Boolean,
-        default: false
-    },
+    topicId: {
+        type: String,
+        required: true
+    }
+    // ,
+    // highlighted:   {
+    //     type: Boolean,
+    //     default: false
+    // },
     // numberOfLikes:{
 	// type: Number,
 	// default: 0,

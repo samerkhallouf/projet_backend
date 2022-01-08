@@ -4,7 +4,7 @@ var Postrouter = express.Router();
 var Post = require('../models/post')
 
 /* GET home page. */
-Postrouter.get("/", async (req, res, next) => {
+Postrouter.get("/:topicId", async (req, res, next) => {
     try {
     const post = await Post.find({});
     res.json(post);
@@ -38,11 +38,11 @@ Postrouter.post('/NewPost/:topicId/:userId', async(req,res)=>{
 
 
 Postrouter.delete('/:postId', (req,res,next) => {
-    Post.findByIdAndDelete(req.params.postId)
+    Post.findByIdAndRemove(req.params.postId)
     .then ((resp) =>{
       res.statusCode = 200;
       res.setHeader('Content-Type', 'application/json');
-                  res.json(user);
+                  res.json(resp);
               }, (err) => next(err))
               .catch((err) => next(err));
   })

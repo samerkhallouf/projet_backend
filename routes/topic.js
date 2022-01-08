@@ -22,9 +22,9 @@ Topicrouter.post('/NewTopic',(req,res,next)=>{
 });
 
 Topicrouter.delete('/:topicId',  (req,res,next )=>{
-    Topics.findByIdAndDelete(req.params.topicId)
+    Topics.findByIdAndRemove(req.params.topicId)
     .then ((resp) => {
-        res.json(user);
+        res.json(resp);
     }, (err) => next(err))
     .catch((err) => next(err));
 });
