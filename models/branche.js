@@ -5,11 +5,11 @@ const Schema = mongoose.Schema;
 var brancheSchema = new Schema ({
     id:{
         type : Number,
-        required = true
+        required : true
     },
     region:{
         type: String,
-        required = true
+        required : true
     }
 })
 

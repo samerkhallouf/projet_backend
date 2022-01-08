@@ -13,8 +13,8 @@ var config = require('./config');
 var app = express();
 const mongoose = require('mongoose');
 const url = config.mongoUrl;
-const connect = mongoose.connect(url, { useFindAndModify: false });
-
+const connect = mongoose.connect(url);
+var cors = require('cors');
 connect.then((db) => {
   console.log("Connected correctly to server");
 }, (err) => { console.log(err); });
@@ -22,13 +22,12 @@ connect.then((db) => {
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
-
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-
+app.use(cors())
 app.use('/user', userRouter);
 app.use('/branche', brancheRouter);
 app.use('/like', likeRouter);

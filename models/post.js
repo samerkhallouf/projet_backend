@@ -20,7 +20,7 @@ var postSchema = new Schema({
         default: false
     },
     numberOfLikes:{
-	type: Numbrer,
+	type: Number,
 	default: 0,
     timestamps: true
     }

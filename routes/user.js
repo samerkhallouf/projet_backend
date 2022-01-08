@@ -11,4 +11,36 @@ router.get("/", async (req, res, next) => {
     }
     });
 
+router.post('/AddUser', async(req,res,next)=>{
+  User.create(req.body)
+  .then((user) => {
+    console.log("User added", user);
+    res.statusCode = 200;
+    res.setHeader('Content-Type', 'application/json');
+    res.json(user);
+  },(err) => next(err))
+  .catch((err) => next(err)); 
+})
+
+router.delete('/Users/:userId', (req,res,next) => {
+  User.findByIdAndDelete(req.params.userId)
+  .then ((resp) =>{
+    res.statusCode = 200;
+    res.setHeader('Content-Type', 'application/json');
+                res.json(user);
+            }, (err) => next(err))
+            .catch((err) => next(err));
+})
+
+router.put('/AddUser/:userId',(req,res,next)=>{
+  User.findByIdAndUpdate(req.params.userId,{
+    $set:req.body
+  },{ new : true})
+  .then ((user) =>{
+    res.statusCode = 200;
+    res.setHeader('Content-Type', 'application/json');
+                res.json(user);
+            }, (err) => next(err))
+            .catch((err) => next(err));
+})
 module.exports = router;
