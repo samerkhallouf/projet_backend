@@ -22,7 +22,7 @@ router.post('/AddUser', async(req,res,next)=>{
   .catch((err) => next(err)); 
 })
 
-router.delete('/Users/:userId', (req,res,next) => {
+router.delete('/:userId', (req,res,next) => {
   User.findByIdAndDelete(req.params.userId)
   .then ((resp) =>{
     res.statusCode = 200;

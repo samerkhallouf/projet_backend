@@ -21,7 +21,7 @@ Topicrouter.post('/NewTopic',(req,res,next)=>{
     .catch((err)=> next(err))   
 });
 
-Topicrouter.delete('/AdminTopics/:topicId',  (req,res,next )=>{
+Topicrouter.delete('/:topicId',  (req,res,next )=>{
     Topics.findByIdAndDelete(req.params.topicId)
     .then ((resp) => {
         res.json(user);
