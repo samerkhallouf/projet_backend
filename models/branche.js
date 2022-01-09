@@ -3,16 +3,16 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 var brancheSchema = new Schema ({
-    id:{
-        type : Number,
-        required : true
-    },
     region:{
         type: String,
         required : true
-    }
+    },
+    users: [{
+        type: mongoose.Schema.Types.ObjectId, 
+        ref: 'User'
+    }]
 })
 
-var branche = mongoose.model('Branche',brancheSchema);
+var Branche = mongoose.model('Branche',brancheSchema);
 
-module.exports = branche;
+module.exports = Branche;

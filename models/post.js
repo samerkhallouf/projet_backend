@@ -2,9 +2,9 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 var postSchema = new Schema({
-    userId: {
-        type: String,
-        required: true
+    user : {
+        type: mongoose.Schema.Types.ObjectId, 
+        ref: 'User'
     },
     title: {
         type: String,
@@ -14,10 +14,12 @@ var postSchema = new Schema({
         type: String,
         required: true
     },
-    topicId: {
-        type: String,
-        required: true
+    topic : {
+        type: mongoose.Schema.Types.ObjectId, 
+        ref: 'Topic'
     }
+    }, {
+        timestamps: true
     // ,
     // highlighted:   {
     //     type: Boolean,
@@ -27,7 +29,11 @@ var postSchema = new Schema({
 	// type: Number,
 	// default: 0,
     // timestamps: true
-    // }
+    // },
+    // likes: [{
+    //     type: mongoose.Schema.Types.ObjectId, 
+    //     ref: 'Like'
+    // }]
 });
 
 var Posts = mongoose.model('Post', postSchema);

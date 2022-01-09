@@ -1,33 +1,32 @@
 var express = require('express');
-const Branche = require('../models/branche');
+const JobTitle = require('../models/job_title');
 var router = express.Router();
 
 /* GET home page. */
 router.get("/", async (req, res, next) => {
     try {
-    const branche = await Branche.find({});
-    res.json(branche);
+    const job = await JobTitle.find({});
+    res.json(job);
     } catch (error) {
         next(error);
     }
 });
 
 router.post('/',(req,res)=>{
-    const branche = new Branche(req.body);
-    branche.save().then(() => {
-        res.status(200).json(branche)
+    const job = new JobTitle(req.body);
+    job.save().then(() => {
+        res.status(200).json(job)
     }).catch((error) =>{
         console.log(error);
         res.status(500).json({
             success : false,
-            message : "error creating a new branche"
+            message : "error creating a new job"
         })
     }) 
 
 });
-
-router.delete('/:brancheId',  (req,res,next )=>{
-    Branche.findByIdAndRemove(req.params.brancheId)
+router.delete('/:jobId',  (req,res,next )=>{
+    Branche.findByIdAndRemove(req.params.jobId)
     .then ((resp) => {
         res.json(resp);
     }, (err) => next(err))

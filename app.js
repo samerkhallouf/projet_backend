@@ -9,6 +9,7 @@ var brancheRouter = require('./routes/branche');
 var likeRouter = require('./routes/like');
 var postRouter = require('./routes/post');
 var topicRouter = require('./routes/topic');
+var jobRouter= require('./routes/job_title');
 var config = require('./config');
 var app = express();
 const mongoose = require('mongoose');
@@ -27,12 +28,13 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(cors())
+app.use(cors());
 app.use('/user', userRouter);
 app.use('/branche', brancheRouter);
 app.use('/like', likeRouter);
 app.use('/post', postRouter);
 app.use('/topic', topicRouter);
+app.use('/job_title', jobRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
