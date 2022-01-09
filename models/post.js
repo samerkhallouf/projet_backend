@@ -2,9 +2,9 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 var postSchema = new Schema({
-    userId: {
-        type: String,
-        required: true
+    user : {
+        type: mongoose.Schema.Types.ObjectId, 
+        ref: 'User'
     },
     title: {
         type: String,
@@ -14,9 +14,9 @@ var postSchema = new Schema({
         type: String,
         required: true
     },
-    topicId: {
-        type: String,
-        required: true
+    topic : {
+        type: mongoose.Schema.Types.ObjectId, 
+        ref: 'Topic'
     }
     // ,
     // highlighted:   {
