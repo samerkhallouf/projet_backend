@@ -11,13 +11,17 @@ router.get("/", async (req, res, next) => {
     }
     });
 
-router.post('/AddUser', async(req,res,next)=>{
-  User.create(req.body)
-  .then((user) => {
-    console.log("User added", user);
-    res.json(user);
-  },(err) => next(err))
-  .catch((err) => next(err)); 
+router.post('/AddUser', async(req,res)=>{
+  const user = new User(req.body);
+  user.save().then(() => {
+      res.status(200).json(user)
+  }).catch((error) =>{
+      console.log(error);
+      res.status(500).json({
+          success : false,
+          message : "error creating a new user"
+      })
+  }) 
 })
 
 router.delete('/:userId', (req,res,next) => {
@@ -28,13 +32,15 @@ router.delete('/:userId', (req,res,next) => {
             .catch((err) => next(err));
 })
 
-router.put('/:userId',(req,res,next)=>{
-  User.findByIdAndUpdate(req.params.userId,{
-    $set:req.body
-  },{ new : true})
-  .then ((user) =>{
-                res.json(user);
-            }, (err) => next(err))
-            .catch((err) => next(err));
+router.put('/:userId',(req,res)=>{
+  User.findByIdAndUpdate(req.params.userId,
+    {$set:req.body}, 
+    { new: true })
+    .then(() => {
+        res.status(200).json({success: true});
+}).catch((err) => {
+ console.log(err);
+ res.status(400).json({success: false, msg: err.message})
+})
 })
 module.exports = router;

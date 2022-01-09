@@ -1,40 +1,42 @@
 var express = require('express');
 const Posts = require('../models/post');
 var Postrouter = express.Router();
-var Post = require('../models/post')
+var Post = require('../models/post');
+const { post } = require('./user');
 
 /* GET home page. */
-Postrouter.get("/:topicId", async (req, res, next) => {
+Postrouter.get("/Bytopics", async (req, res) => {
     try {
-    const post = await Post.find({});
+    const post = await Post.find(req.body);
     res.json(post);
     } catch (error) {
     res.Postrouter(500).send(error.message);
     }
 });
-Postrouter.get('/:userId', async(req,res)=>{
-    try{
-        const post = await Post.findById(req.params.id);
-        res.json(post)
-        if(!post){
-            return res.status(404);
-        }
-        res.status(200).send(post);
-    }catch(error){
-        res.Postrouter(500).send(error.message);
-    }
-})
 
-Postrouter.post('/NewPost/:topicId/:userId', async(req,res)=>{
-    Post.create(req.body)
-    .then((post) => {
-      console.log("post added", post);
-      res.statusCode = 200;
-      res.setHeader('Content-Type', 'application/json');
-      res.json(post);
-    },(err) => next(err))
-    .catch((err) => next(err)); 
+Postrouter.get("/Byuser", async(req,res)=>{
+
+    try {
+        const post = await Post.find(req.body);
+        res.json(post);
+        } catch (error) {
+        res.Postrouter(500).send(error.message);
+        }
 })
+Postrouter.post('/NewPost',(req,res)=>{
+    const post = new Post(req.body);
+    post.save().then(() => {
+        res.status(200).json(post)
+    }).catch((error) =>{
+        console.log(error);
+        res.status(500).json({
+            success : false,
+            message : "error creating a new post"
+        })
+    }) 
+
+});
+
 
 
 Postrouter.delete('/:postId', (req,res,next) => {

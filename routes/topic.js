@@ -12,15 +12,19 @@ Topicrouter.get("/", async (req, res, next) => {
     }
 });
 
-Topicrouter.post('/NewTopic',(req,res,next)=>{
-    Topics.create(req.body)
-    .then ((topic) => {
-        console.log("Topic added ",topic );
-        res.json(topic);
-    },(err)=> next(err))
-    .catch((err)=> next(err))   
-});
+Topicrouter.post('/NewTopic',(req,res)=>{
+    const topic = new Topics(req.body);
+    topic.save().then(() => {
+        res.status(200).json(topic)
+    }).catch((error) =>{
+        console.log(error);
+        res.status(500).json({
+            success : false,
+            message : "error creating a new topic"
+        })
+    }) 
 
+});
 Topicrouter.delete('/:topicId',  (req,res,next )=>{
     Topics.findByIdAndRemove(req.params.topicId)
     .then ((resp) => {
@@ -28,14 +32,16 @@ Topicrouter.delete('/:topicId',  (req,res,next )=>{
     }, (err) => next(err))
     .catch((err) => next(err));
 });
-
-Topicrouter.put('/ModifyTopics/:topicId',  (req,res,next)=>{
-    Topics.findByIdAndUpdate(req.params.topicId)
-    .then((resp) => {
-        res.json(user);
-    }, (err) => next(err))
-    .catch((err) => next(err));
+Topicrouter.put("/ModifyTopics/:id", (req, res) => {
+    Topics.findByIdAndUpdate(req.params.id,
+         {$set:req.body}, 
+         { new: true })
+         .then(() => {
+             res.status(200).json({success: true});
+    }).catch((err) => {
+      console.log(err);
+      res.status(400).json({success: false, msg: err.message})
+    })
 });
-
 
 module.exports = Topicrouter;
