@@ -5,6 +5,15 @@ var Post = require('../models/post');
 const { post } = require('./user');
 
 /* GET home page. */
+Postrouter.get('/Allposts',async (req,res) =>{
+    try{
+        const post = await Post.find({});
+        res.json(post);
+        } catch (error) {
+        res.Postrouter(500).send(error.message);
+        }
+})
+
 Postrouter.get("/Bytopics", async (req, res) => {
     try {
     const post = await Post.find(req.body);

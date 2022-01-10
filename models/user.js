@@ -22,10 +22,6 @@ var User = new Schema({
         type: String,
         default: "ChangeYourPassword"
     },
-    posts: [{
-        type: mongoose.Schema.Types.ObjectId, 
-        ref: 'Post'
-    }],
     job_title : {
         type: mongoose.Schema.Types.ObjectId, 
         ref: 'JobTitle',

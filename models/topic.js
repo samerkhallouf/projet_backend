@@ -10,11 +10,7 @@ var topicSchema = new Schema({
     title:{
         type:String,
         required:true
-    },
-    posts: [{
-        type: mongoose.Schema.Types.ObjectId, 
-        ref: 'Post'
-    }]
+    }
 });
 
 var Topics = mongoose.model('Topic', topicSchema);
